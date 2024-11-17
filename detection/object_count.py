@@ -1,5 +1,15 @@
 import cv2
 
+
+def count_products(image_path):
+    # Read the image
+    image = cv2.imread(image_path)
+    
+    # Process image and get count
+    _, count = count_and_draw_products(image)
+    
+    return count
+
 def count_and_draw_products(image, min_contour_area=500):
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     blurred = cv2.GaussianBlur(gray, (5, 5), 0)
@@ -39,7 +49,8 @@ def process_realtime_video(source):
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
-    cap.release()
-    cv2.destroyAllWindows()
+    """ cap.release() """
+    """ cv2.destroyAllWindows() """
 
-process_realtime_video(0)
+""" process_realtime_video(0)
+ """
