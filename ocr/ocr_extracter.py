@@ -7,9 +7,10 @@ def extract_text(image_path):
     text = pytesseract.image_to_string(image)
     return text
 
-path="Test2.jpg"
-a=extract_text(path)
+#path="ocr/Test2.jpg"
+#print("Extracting text from image...",path)
+#a=extract_text(path)
 
-with open("ocr.txt",'w') as ocr_file:
+""" with open("ocr/ocr.txt",'w') as ocr_file:
     ocr_file.write(a)
-print("file saved")
+print("file saved") """

@@ -1,15 +1,17 @@
 import os
-import cv2
 import base64
 from flask import Flask, render_template, request, jsonify
 from ocr.ocr_extracter import extract_text
 from detection.object_count import count_products
-from model.model_freshness import predict_freshness
+from Freshness_detection.model_freshness import predict_freshness
 from classifier.image_type_detector import detect_image_type
 
 app = Flask(__name__)
 UPLOAD_FOLDER = 'static/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 @app.route('/')
 def home():
@@ -19,12 +21,12 @@ def home():
 def capture_image():
     selected_services = request.form.getlist('services')
     
-    # Check if an image file was uploaded or a photo was captured
+    
     uploaded_file = request.files.get('image')
     captured_image = request.form.get('captured_image')
 
     if uploaded_file:
-        # Save uploaded file
+        
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file.filename)
         uploaded_file.save(file_path)
     elif captured_image:
@@ -61,4 +63,12 @@ def capture_image():
         return str(e), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = 8000
+    print(f"\nServer is running at:")
+    print(f"  * Local URL: http://localhost:{port}")
+    print(f"  * Network URL: http://127.0.0.1:{port}")
+    print("\nAvailable endpoints:")
+    print(f"  * Home: http://localhost:{port}/")
+    print(f"  * Capture API: http://localhost:{port}/capture (POST)")
+    print("\nPress CTRL+C to quit\n")
+    app.run(debug=True, port=port)
