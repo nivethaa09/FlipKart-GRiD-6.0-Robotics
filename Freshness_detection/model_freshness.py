@@ -19,7 +19,7 @@ def predict_freshness(image_path):
     prediction = model.predict(image)
 
     # Interpret prediction results
-    if prediction[0][0] > 0.5:
+    if prediction[0][0] < 0.5:
         return "Fresh"
     else:
         return "Not Fresh"

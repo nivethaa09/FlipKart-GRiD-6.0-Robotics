@@ -337,7 +337,7 @@
 
               previewImage.src = source;
           } else {
-              /
+              
               previewImage.src = source.src;
           }
 
@@ -415,11 +415,17 @@
           .then(data => {
               let resultsHTML = "";
               if (data.product_details) {
-                  resultsHTML += `<div class="mb-4 p-4 bg-white/70 rounded-lg">
-                      <h3 class="font-semibold text-indigo-800 mb-2">🔍 Product Details:</h3>
-                      <p class="text-indigo-600">${data.product_details}</p>
-                  </div>`;
-              }
+                resultsHTML += `<div class="mb-4 p-4 bg-white/70 rounded-lg">
+                    <h3 class="font-semibold text-indigo-800 mb-2">🔍 Product Details:</h3>`;
+                
+                // Loop through the keys and values of the product_details object
+                for (const [key, value] of Object.entries(data.product_details)) {
+                    resultsHTML += `<p class="text-indigo-600"><strong>${key}:</strong> ${value}</p>`;
+                }
+            
+                resultsHTML += `</div>`;
+            }
+            
               if (data.product_count) {
                   resultsHTML += `<div class="mb-4 p-4 bg-white/70 rounded-lg">
                       <h3 class="font-semibold text-indigo-800 mb-2">🔢 Product Count:</h3>
